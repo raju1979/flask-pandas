@@ -56,6 +56,13 @@ class UserLogin(Resource):
         print(access_token)
         return {"login": "Success", "token": access_token}, 200
 
+class TitanicGetColumnsName(Resource):
+    @jwt_required
+    def get(self):
+        df = read_csv_via_pandas()
+        print(df.columns)
+        return {"total_columns": list(df.columns.values)}
+
 
 
 def get_pandas_csv_data():    
@@ -69,3 +76,7 @@ def get_pandas_describe_data():
     json_out = out.to_json()
     return json_out
 
+
+def read_csv_via_pandas():
+    df = pd.read_csv(file_name,  converters={'json_column_name': eval})
+    return df

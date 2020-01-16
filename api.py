@@ -39,6 +39,7 @@ api.add_resource(todo_route.TodoSimple, '/titanic/<string:todo_id>')
 api.add_resource(todo_route.TitanicGetAllRecords, '/titanic/all')
 api.add_resource(todo_route.TatanicDescribe, '/titanic/describe')
 api.add_resource(todo_route.UserLogin, '/login')
+api.add_resource(todo_route.TitanicGetColumnsName, '/titanic/columns')
 
 if __name__ == '__main__':
     app.run(debug=True)
