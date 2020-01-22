@@ -8,6 +8,9 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
+from flask_pymongo import PyMongo
+from pymongo import MongoClient
+import pymongo
 import argparse
 import json
 
@@ -31,6 +34,15 @@ app.config.update(secret_settings)
 app.config['JWT_SECRET_KEY'] = app.config['secret']
 jwt = JWTManager(app)
 
+mongo_url = config_data['MONGO_URI']
+app.config.update(mongo_url)
+
+app.config["MONGO_URI"] = app.config['MONGO_URI']
+# mongo = PyMongo(app)
+# print(app.config)
+global mydb
+myclient = MongoClient(app.config['MONGO_URI'])
+app.mydb = myclient["flask-pandas"]
 
 
 api = Api(app)
@@ -40,6 +52,7 @@ api.add_resource(todo_route.TitanicGetAllRecords, '/titanic/all')
 api.add_resource(todo_route.TatanicDescribe, '/titanic/describe')
 api.add_resource(todo_route.UserLogin, '/login')
 api.add_resource(todo_route.TitanicGetColumnsName, '/titanic/columns')
+api.add_resource(todo_route.UserRegistration, '/registration')
 
 if __name__ == '__main__':
     app.run(debug=True)

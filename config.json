@@ -11,9 +11,13 @@
         "MYSQL_HOST":"localhost",
         "MYSQL_USER": "user_name",
         "MYSQL_PASSWORD":"password",
-        "MYSQL_DB":"database_name"
+        "MONGO_URL":"mongodb+srv://raju:2180450a@pandas-jj5fq.mongodb.net/flask-pandas?retryWrites=true&w=majority"
     },
     "secret": {
         "secret": "SUPER-SECRET"
+    },
+    "MONGO_URI": {
+        "MONGO_URI":"mongodb+srv://raju:2180450a@pandas-jj5fq.mongodb.net/flask-pandas?retryWrites=true&w=majority"
     }
+    
 }
