@@ -13,6 +13,7 @@ from pymongo import MongoClient
 import pymongo
 import argparse
 import json
+from flask_cors import CORS
 
 with open('config.json') as config_file:
     config_data = json.load(config_file)
@@ -26,7 +27,7 @@ with open('config.json') as config_file:
 # print(args['secret'])
 
 app = Flask(__name__)
-
+CORS(app)
 # JWT secret  configuration
 secret_settings = config_data['secret']
 app.config.update(secret_settings)
