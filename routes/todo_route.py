@@ -77,6 +77,24 @@ class TitanicGetColumnsName(Resource):
         print(df.columns)
         return {"total_columns": list(df.columns.values)}
 
+class TitanicGetFilteredData(Resource):
+    @jwt_required
+    def post(self):
+        req = request.get_json()
+        start_index = req['start_index']
+        end_index = req['end_index']
+        columns = req['columns']
+        print('COLUMNS', columns)
+        data = get_pandas_filtered_data(start_index, end_index, columns)
+        return {"columns": json.loads(data)}, 200
+
+class TitanicGetColumnsLength(Resource):
+    @jwt_required
+    def get(self):
+        df = read_csv_via_pandas()
+        print(df.columns)
+        return {"total_columns": list(df.columns.values), "total_records": len(df)}, 200
+
 class UserRegistration(Resource):
     def post(self):
         req = request.get_json()
@@ -128,3 +146,13 @@ def verify_password(stored_password, provided_password):
                                   100000)
     pwdhash = binascii.hexlify(pwdhash).decode('ascii')
     return pwdhash == stored_password
+
+def get_pandas_filtered_data(start_index=0, end_index=0, columns = []):
+    df = pd.read_csv(file_name,  converters={'json_column_name': eval})
+    return_data = df.loc[start_index:end_index, columns]
+    print(return_data)
+    return return_data.to_json(orient='records')
+
+
+
+
